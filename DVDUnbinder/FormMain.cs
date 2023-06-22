@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,6 +12,10 @@ namespace DVDUnbinder
     public partial class FormMain : Form
     {
         private static readonly Properties.Settings settings = Properties.Settings.Default;
+        private static readonly string EnvFolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private static readonly string ResFolderPath = $"{EnvFolderPath}\\res";
+        private static readonly string OverridePath = $"{ResFolderPath}\\override.txt";
+        private static readonly string BlacklistPath = $"{ResFolderPath}\\blacklist.txt";
 
         public FormMain()
         {
@@ -89,6 +94,30 @@ namespace DVDUnbinder
                 File.CreateText(cleanDictPath);
                 //File.CreateText(hashesPath);
 
+                var overrides = new Dictionary<uint, string>();
+                if (File.Exists(OverridePath))
+                {
+                    try
+                    {
+                        foreach (var line in File.ReadAllLines(OverridePath))
+                        {
+                            var split = line.Split('=');
+                            overrides.Add(uint.Parse(split[0]), split[1]);
+                        }
+                    }
+                    catch{}
+                }
+
+                List<string> blacklist = new List<string>();
+                if (File.Exists(BlacklistPath))
+                {
+                    try
+                    {
+                        blacklist.AddRange(File.ReadAllLines(BlacklistPath));
+                    }
+                    catch{}
+                }
+
                 await Task.Run(() =>
                 {
                     foreach (BHD5.Bucket bucket in bhd.Buckets)
@@ -97,34 +126,44 @@ namespace DVDUnbinder
                         {
                             bool found = dict.TryGetValue(fileHeader.FileNameHash, out string name);
                             //hashesList.Add(fileHeader.FileNameHash.ToString());
-                            if (!found)
+                            if (!found || blacklist.Contains($"{fileHeader.FileNameHash}={name}"))
                             {
                                 notFoundFiles++;
                                 byte[] data = fileHeader.ReadFile(dataStream);
-                                string extension = SFUtil.GuessExtension(data);
-                                string fileName = $"{fileHeader.FileNameHash}{extension}";
-                                string folder = $"{SFUtil.GuessFolder(data, extension)}";
-                                string outPath = $@"{outDir}/_unknown/{folder}{fileName}";
-                                if (!File.Exists($@"{outDir}/{name}"))
+
+                                string outPath;
+                                if (overrides.ContainsKey(fileHeader.FileNameHash))
                                 {
-                                   Directory.CreateDirectory(Path.GetDirectoryName(outPath));
-                                   File.WriteAllBytes(outPath, data);
+                                    outPath = $"{outDir}\\{overrides[fileHeader.FileNameHash]}";
+                                }
+                                else
+                                {
+                                    string extension = SFUtil.GuessExtension(data);
+                                    string fileName = $"{fileHeader.FileNameHash}{extension}";
+                                    string folder = $"{SFUtil.GuessFolder(data, extension)}";
+                                    outPath = $"{outDir}\\_unknown\\{folder}{fileName}";
+                                }
+
+                                if (!File.Exists(outPath))
+                                {
+                                    Directory.CreateDirectory(Path.GetDirectoryName(outPath));
+                                    File.WriteAllBytes(outPath, data);
                                 }
                             }
                             else if (found)
                             {
                                 foundFiles++;
                                 cleanList.Add(name);
-                                if (!File.Exists($@"{outDir}/{name}"))
+                                if (!File.Exists($"{outDir}\\{name}"))
                                 {
                                     byte[] data = fileHeader.ReadFile(dataStream);
-                                    string outPath = $@"{outDir}/{name}";
+                                    string outPath = $"{outDir}\\{name}";
                                     Directory.CreateDirectory(Path.GetDirectoryName(outPath));
                                     File.WriteAllBytes(outPath, data);
                                 }
                             }
 
-                            Invoke(new Action(() => txtCurrent.Text = $"{notFoundFiles} not found out of {foundFiles + notFoundFiles} total files; {dict.Count} names tried."));
+                            Invoke(new Action(() => txtCurrent.Text = $"{notFoundFiles} not found out of {foundFiles + notFoundFiles} total files; {dict.Count} names tried per hash."));
                             Invoke(new Action(() => pbrProgress.Value++));
                         }
                     }
@@ -201,6 +240,75 @@ namespace DVDUnbinder
             if (str == null)
                 return;
             txtOutput.Text = str;
+        }
+
+        private async void DumpHashNameMatch_Click(object sender, EventArgs e)
+        {
+            string headerPath = txtHeader.Text;
+            string dataPath = txtData.Text;
+
+            if (!File.Exists(headerPath))
+            {
+                MessageBox.Show("Header file not found.");
+                return;
+            }
+            if (!File.Exists(dataPath))
+            {
+                MessageBox.Show("Data file not found.");
+                return;
+            }
+
+            Dictionary<uint, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text);
+            string outDir = txtOutput.Text;
+            BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
+
+            List<string> blacklist = new List<string>();
+            if (File.Exists(BlacklistPath))
+            {
+                try
+                {
+                    blacklist.AddRange(File.ReadAllLines(BlacklistPath));
+                }
+                catch{}
+            }
+
+            using (var headerStream = File.OpenRead(headerPath))
+            using (var dataStream = File.OpenRead(dataPath))
+            {
+                BHD5 bhd = BHD5.Read(headerStream, game);
+                pbrProgress.Maximum = bhd.Buckets.Sum(b => b.Count);
+                pbrProgress.Value = 0;
+                int foundFiles = 0;
+                int notFoundFiles = 0;
+                string outPath = $"{outDir}\\hashes-names.txt";
+                List<string> list = new List<string>();
+                File.CreateText(outPath);
+
+                await Task.Run(() =>
+                {
+                    foreach (BHD5.Bucket bucket in bhd.Buckets)
+                    {
+                        foreach (BHD5.FileHeader fileHeader in bucket)
+                        {
+                            bool found = dict.TryGetValue(fileHeader.FileNameHash, out string name);
+                            string result = $"{fileHeader.FileNameHash}={name}";
+                            if (found && !blacklist.Contains(result))
+                            {
+                                foundFiles++;
+                                list.Add(result);
+                            }
+                            else
+                            {
+                                notFoundFiles++;
+                            }
+
+                            Invoke(new Action(() => txtCurrent.Text = $"{notFoundFiles} not found out of {foundFiles + notFoundFiles} total files; {dict.Count} names tried per hash."));
+                            Invoke(new Action(() => pbrProgress.Value++));
+                        }
+                    }
+                });
+                File.WriteAllLines(outPath, list);
+            }
         }
     }
 }
