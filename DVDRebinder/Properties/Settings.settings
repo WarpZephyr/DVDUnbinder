@@ -6,7 +6,7 @@
       <Value Profile="(Default)">100, 100</Value>
     </Setting>
     <Setting Name="WindowSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">714, 290</Value>
+      <Value Profile="(Default)">855, 330</Value>
     </Setting>
     <Setting Name="WindowMaximized" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

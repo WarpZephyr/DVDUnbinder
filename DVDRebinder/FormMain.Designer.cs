@@ -77,7 +77,7 @@
             // 
             this.cbxBigEndian.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxBigEndian.AutoSize = true;
-            this.cbxBigEndian.Location = new System.Drawing.Point(365, 205);
+            this.cbxBigEndian.Location = new System.Drawing.Point(506, 205);
             this.cbxBigEndian.Name = "cbxBigEndian";
             this.cbxBigEndian.Size = new System.Drawing.Size(77, 17);
             this.cbxBigEndian.TabIndex = 26;
@@ -89,7 +89,7 @@
             this.cbxGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxGame.FormattingEnabled = true;
-            this.cbxGame.Location = new System.Drawing.Point(448, 203);
+            this.cbxGame.Location = new System.Drawing.Point(589, 203);
             this.cbxGame.Name = "cbxGame";
             this.cbxGame.Size = new System.Drawing.Size(173, 21);
             this.cbxGame.TabIndex = 24;
@@ -97,7 +97,7 @@
             // btnBrowseHeaderBucketCount
             // 
             this.btnBrowseHeaderBucketCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseHeaderBucketCount.Location = new System.Drawing.Point(627, 178);
+            this.btnBrowseHeaderBucketCount.Location = new System.Drawing.Point(768, 178);
             this.btnBrowseHeaderBucketCount.Name = "btnBrowseHeaderBucketCount";
             this.btnBrowseHeaderBucketCount.Size = new System.Drawing.Size(59, 20);
             this.btnBrowseHeaderBucketCount.TabIndex = 23;
@@ -108,7 +108,7 @@
             // btnBrowseDataName
             // 
             this.btnBrowseDataName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseDataName.Location = new System.Drawing.Point(627, 68);
+            this.btnBrowseDataName.Location = new System.Drawing.Point(768, 68);
             this.btnBrowseDataName.Name = "btnBrowseDataName";
             this.btnBrowseDataName.Size = new System.Drawing.Size(59, 20);
             this.btnBrowseDataName.TabIndex = 22;
@@ -119,7 +119,7 @@
             // btnBrowseHeaderName
             // 
             this.btnBrowseHeaderName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseHeaderName.Location = new System.Drawing.Point(627, 25);
+            this.btnBrowseHeaderName.Location = new System.Drawing.Point(768, 25);
             this.btnBrowseHeaderName.Name = "btnBrowseHeaderName";
             this.btnBrowseHeaderName.Size = new System.Drawing.Size(59, 20);
             this.btnBrowseHeaderName.TabIndex = 21;
@@ -131,7 +131,7 @@
             // 
             this.lblBucketDistribution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBucketDistribution.AutoSize = true;
-            this.lblBucketDistribution.Location = new System.Drawing.Point(340, 180);
+            this.lblBucketDistribution.Location = new System.Drawing.Point(481, 180);
             this.lblBucketDistribution.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.lblBucketDistribution.Name = "lblBucketDistribution";
             this.lblBucketDistribution.Size = new System.Drawing.Size(102, 13);
@@ -141,7 +141,7 @@
             // numBucketDistribution
             // 
             this.numBucketDistribution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numBucketDistribution.Location = new System.Drawing.Point(448, 178);
+            this.numBucketDistribution.Location = new System.Drawing.Point(589, 178);
             this.numBucketDistribution.Maximum = new decimal(new int[] {
             2147483647,
             0,
@@ -187,7 +187,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHeaderName.Location = new System.Drawing.Point(15, 25);
             this.txtHeaderName.Name = "txtHeaderName";
-            this.txtHeaderName.Size = new System.Drawing.Size(606, 20);
+            this.txtHeaderName.Size = new System.Drawing.Size(747, 20);
             this.txtHeaderName.TabIndex = 15;
             this.txtHeaderName.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtHeaderName.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -199,7 +199,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDataName.Location = new System.Drawing.Point(15, 68);
             this.txtDataName.Name = "txtDataName";
-            this.txtDataName.Size = new System.Drawing.Size(606, 20);
+            this.txtDataName.Size = new System.Drawing.Size(747, 20);
             this.txtDataName.TabIndex = 16;
             this.txtDataName.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtDataName.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -207,7 +207,7 @@
             // btnRepack
             // 
             this.btnRepack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRepack.Location = new System.Drawing.Point(627, 201);
+            this.btnRepack.Location = new System.Drawing.Point(768, 201);
             this.btnRepack.Name = "btnRepack";
             this.btnRepack.Size = new System.Drawing.Size(59, 23);
             this.btnRepack.TabIndex = 27;
@@ -218,7 +218,7 @@
             // btnBrowseOutput
             // 
             this.btnBrowseOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseOutput.Location = new System.Drawing.Point(627, 152);
+            this.btnBrowseOutput.Location = new System.Drawing.Point(768, 152);
             this.btnBrowseOutput.Name = "btnBrowseOutput";
             this.btnBrowseOutput.Size = new System.Drawing.Size(59, 20);
             this.btnBrowseOutput.TabIndex = 30;
@@ -233,7 +233,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOutput.Location = new System.Drawing.Point(15, 152);
             this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(606, 20);
+            this.txtOutput.Size = new System.Drawing.Size(747, 20);
             this.txtOutput.TabIndex = 28;
             this.txtOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -245,7 +245,7 @@
             this.txtCurrent.Location = new System.Drawing.Point(12, 230);
             this.txtCurrent.Name = "txtCurrent";
             this.txtCurrent.ReadOnly = true;
-            this.txtCurrent.Size = new System.Drawing.Size(674, 20);
+            this.txtCurrent.Size = new System.Drawing.Size(815, 20);
             this.txtCurrent.TabIndex = 32;
             // 
             // pbrProgress
@@ -254,13 +254,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbrProgress.Location = new System.Drawing.Point(12, 256);
             this.pbrProgress.Name = "pbrProgress";
-            this.pbrProgress.Size = new System.Drawing.Size(674, 23);
+            this.pbrProgress.Size = new System.Drawing.Size(815, 23);
             this.pbrProgress.TabIndex = 31;
             // 
             // btnBrowseInput
             // 
             this.btnBrowseInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseInput.Location = new System.Drawing.Point(627, 110);
+            this.btnBrowseInput.Location = new System.Drawing.Point(768, 110);
             this.btnBrowseInput.Name = "btnBrowseInput";
             this.btnBrowseInput.Size = new System.Drawing.Size(59, 20);
             this.btnBrowseInput.TabIndex = 35;
@@ -275,7 +275,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInput.Location = new System.Drawing.Point(15, 110);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(606, 20);
+            this.txtInput.Size = new System.Drawing.Size(747, 20);
             this.txtInput.TabIndex = 33;
             this.txtInput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtInput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -284,7 +284,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 291);
+            this.ClientSize = new System.Drawing.Size(839, 291);
             this.Controls.Add(this.btnBrowseInput);
             this.Controls.Add(lblInput);
             this.Controls.Add(this.txtInput);
