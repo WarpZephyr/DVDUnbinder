@@ -1,6 +1,8 @@
-﻿using SoulsFormats;
+﻿using BHDLib;
+using SoulsFormats;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -37,6 +39,8 @@ namespace DVDUnbinder
             txtOutput.Text = settings.OutputDir;
 
             cbxGame.DataSource = Enum.GetValues(typeof(BHD5.Game));
+            if (cbxGame.Items.Contains(settings.Game))
+                cbxGame.Text = settings.Game;
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -59,6 +63,38 @@ namespace DVDUnbinder
             settings.OutputDir = txtOutput.Text;
         }
 
+        private void BrowseHeaderFile_Click(object sender, EventArgs e)
+        {
+            string str = Util.GetFile();
+            if (str == null)
+                return;
+            txtHeader.Text = str;
+        }
+
+        private void BrowseDataFile_Click(object sender, EventArgs e)
+        {
+            string str = Util.GetFile();
+            if (str == null)
+                return;
+            txtData.Text = str;
+        }
+
+        private void BrowseDictFile_Click(object sender, EventArgs e)
+        {
+            string str = Util.GetFile();
+            if (str == null)
+                return;
+            txtDictionary.Text = str;
+        }
+
+        private void BrowseOutputFolder_Click(object sender, EventArgs e)
+        {
+            string str = Util.GetFolder();
+            if (str == null)
+                return;
+            txtOutput.Text = str;
+        }
+
         private async void BtnUnpack_Click(object sender, EventArgs e)
         {
             string headerPath = txtHeader.Text;
@@ -75,10 +111,10 @@ namespace DVDUnbinder
                 return;
             }
 
-            Dictionary<uint, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text);
-            string outDir = txtOutput.Text;
             BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
-
+            Dictionary<ulong, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text, game);
+            string outDir = txtOutput.Text;
+            
             using (var headerStream = File.OpenRead(headerPath))
             using (var dataStream = File.OpenRead(dataPath))
             {
@@ -88,13 +124,27 @@ namespace DVDUnbinder
                 int foundFiles = 0;
                 int notFoundFiles = 0;
                 string cleanDictPath = $"{Path.GetDirectoryName(txtDictionary.Text)}\\cleanDict.txt";
-                //string hashesPath = $"{Path.GetDirectoryName(txtDictionary.Text)}\\hashes.txt";
                 List<string> cleanList = new List<string>();
-                //List<string> hashesList = new List<string>();
                 File.CreateText(cleanDictPath);
-                //File.CreateText(hashesPath);
 
-                var overrides = new Dictionary<uint, string>();
+                string drive = Path.GetPathRoot(Path.GetFullPath(outDir));
+                DriveInfo driveInfo = new DriveInfo(drive);
+
+                long requiredSpace = Util.GetRequiredSpace(bhd);
+                if (driveInfo.AvailableFreeSpace < requiredSpace)
+                {
+                    DialogResult choice = MessageBox.Show(
+                        $"{requiredSpace / 1024 / 1024 / 1024} GB of free space is required to unpack this game; " +
+                        $"only {driveInfo.AvailableFreeSpace / (1024f * 1024 * 1024):F1} GB available.\r\n" +
+                        "It will most likely fail.\r\n\r\n" +
+                        "Do you want to continue?",
+                        "Space Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (choice == DialogResult.No)
+                        return;
+                }
+
+                var overrides = new Dictionary<ulong, string>();
                 if (File.Exists(OverridePath))
                 {
                     try
@@ -102,7 +152,7 @@ namespace DVDUnbinder
                         foreach (var line in File.ReadAllLines(OverridePath))
                         {
                             var split = line.Split('=');
-                            overrides.Add(uint.Parse(split[0]), split[1]);
+                            overrides.Add(ulong.Parse(split[0]), split[1]);
                         }
                     }
                     catch{}
@@ -125,7 +175,6 @@ namespace DVDUnbinder
                         foreach (BHD5.FileHeader fileHeader in bucket)
                         {
                             bool found = dict.TryGetValue(fileHeader.FileNameHash, out string name);
-                            //hashesList.Add(fileHeader.FileNameHash.ToString());
                             if (!found || blacklist.Contains($"{fileHeader.FileNameHash}={name}"))
                             {
                                 notFoundFiles++;
@@ -169,98 +218,22 @@ namespace DVDUnbinder
                     }
                 });
                 File.WriteAllLines(cleanDictPath, cleanList);
-                //File.WriteAllLines(hashesPath, hashesList);
             }
-        }
-
-        private void TextBox_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
-        }
-
-        private void TextBox_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                (sender as TextBox).Text = files[0];
-            }
-        }
-
-        private string GetFile()
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return null;
-
-            return dialog.FileName;
-        }
-
-        private string GetFolder()
-        {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-
-            if (dialog.ShowDialog() == DialogResult.Cancel)
-                return null;
-
-            return dialog.SelectedPath;
-        }
-
-        private void BrowseHeaderFile_Click(object sender, EventArgs e)
-        {
-            string str = GetFile();
-            if (str == null)
-                return;
-            txtHeader.Text = str;
-        }
-
-        private void BrowseDataFile_Click(object sender, EventArgs e)
-        {
-            string str = GetFile();
-            if (str == null)
-                return;
-            txtData.Text = str;
-        }
-
-        private void BrowseDictFile_Click(object sender, EventArgs e)
-        {
-            string str = GetFile();
-            if (str == null)
-                return;
-            txtDictionary.Text = str;
-        }
-
-        private void BrowseOutputFolder_Click(object sender, EventArgs e)
-        {
-            string str = GetFolder();
-            if (str == null)
-                return;
-            txtOutput.Text = str;
         }
 
         private async void DumpHashNameMatch_Click(object sender, EventArgs e)
         {
             string headerPath = txtHeader.Text;
-            string dataPath = txtData.Text;
 
             if (!File.Exists(headerPath))
             {
                 MessageBox.Show("Header file not found.");
                 return;
             }
-            if (!File.Exists(dataPath))
-            {
-                MessageBox.Show("Data file not found.");
-                return;
-            }
 
-            Dictionary<uint, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text);
-            string outDir = txtOutput.Text;
             BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
+            Dictionary<ulong, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text, game);
+            string outDir = txtOutput.Text;
 
             List<string> blacklist = new List<string>();
             if (File.Exists(BlacklistPath))
@@ -273,7 +246,6 @@ namespace DVDUnbinder
             }
 
             using (var headerStream = File.OpenRead(headerPath))
-            using (var dataStream = File.OpenRead(dataPath))
             {
                 BHD5 bhd = BHD5.Read(headerStream, game);
                 pbrProgress.Maximum = bhd.Buckets.Sum(b => b.Count);
@@ -308,6 +280,66 @@ namespace DVDUnbinder
                     }
                 });
                 File.WriteAllLines(outPath, list);
+            }
+        }
+
+        private async void btnDumpBuckets_Click(object sender, EventArgs e)
+        {
+            string headerPath = txtHeader.Text;
+
+            if (!File.Exists(headerPath))
+            {
+                MessageBox.Show("Header file not found.");
+                return;
+            }
+
+            BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
+            Dictionary<ulong, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text, game);
+            string outDir = txtOutput.Text;
+
+            using (var headerStream = File.OpenRead(headerPath))
+            {
+                BHD5 bhd = BHD5.Read(headerStream, game);
+                pbrProgress.Maximum = bhd.Buckets.Count;
+                pbrProgress.Value = 0;
+                string outPath = $"{outDir}\\buckets.txt";
+                List<string> list = new List<string>();
+                Directory.CreateDirectory(Path.GetDirectoryName(outPath));
+                File.CreateText(outPath);
+
+                await Task.Run(() =>
+                {
+                    int bucketCount = 0;
+                    for (int i = 0; i < bhd.Buckets.Count; i++)
+                    {
+                        var bucket = bhd.Buckets[i];
+                        list.Add($"bucket_{i} count_{bucket.Count}");
+                        for (int j = 0; j < bucket.Count; j++)
+                            list.Add($"\t{j} {bucket[j].FileNameHash}");
+                        list.Add("");
+                        bucketCount++;
+                        Invoke(new Action(() => txtCurrent.Text = $"Dumped {bucketCount} buckets."));
+                        Invoke(new Action(() => pbrProgress.Value++));
+                    }
+                });
+                File.WriteAllLines(outPath, list);
+            }
+        }
+
+        private void TextBox_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void TextBox_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                (sender as TextBox).Text = files[0];
             }
         }
     }

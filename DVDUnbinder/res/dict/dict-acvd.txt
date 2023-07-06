@@ -1,7 +1,7 @@
-\menusfx\acv_commoneffects.ffxbnd
-\model\menusfx\sfx_m.bnd.dcx
-\model\sfx\sfx_a.bnd.dcx
-\model\sfx\sfx_m.bnd.dcx
+menusfx\acv_commoneffects.ffxbnd
+model\menusfx\sfx_m.bnd.dcx
+model\sfx\sfx_a.bnd.dcx
+model\sfx\sfx_m.bnd.dcx
 airesource\unac\ai0000.bin
 airesource\unac\ai0001.bin
 airesource\unac\ai0101.bin

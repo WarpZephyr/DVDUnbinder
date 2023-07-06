@@ -1,16 +1,23 @@
-﻿using System;
+﻿using SoulsFormats;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 
-namespace DVDUnbinder
+namespace BHDLib
 {
     public static class HashDictionary
     {
-        public static Dictionary<uint, string> ReadDictionary(string path)
+        private const uint PRIME = 37;
+        private const ulong PRIME64 = 0x85ul;
+
+        public static Dictionary<ulong, string> ReadDictionary(string path, BHD5.Game game)
         {
-            var dict = new Dictionary<uint, string>();
+            var dict = new Dictionary<ulong, string>();
 
             if (File.Exists(path))
             {
@@ -18,7 +25,7 @@ namespace DVDUnbinder
                 {
                     if (line.Trim() != "")
                     {
-                        Add(dict, line);
+                        Add(dict, line, game);
                     }
                 }
             }
@@ -26,7 +33,7 @@ namespace DVDUnbinder
             return dict;
         }
 
-        private static void Add(Dictionary<uint, string> dict, string line)
+        private static void Add(Dictionary<ulong, string> dict, string line, BHD5.Game game)
         {
             bool found;
             do
@@ -70,8 +77,8 @@ namespace DVDUnbinder
                 }
                 else
                 {
-                    dict[ComputeHash(l)] = l;
-                    dict[ComputeHash(l + ".dcx")] = l + ".dcx";
+                    dict[ComputeHash(l, game)] = l;
+                    dict[ComputeHash(l + ".dcx", game)] = l + ".dcx";
                 }
             }
 
@@ -116,12 +123,111 @@ namespace DVDUnbinder
             }
         }
 
-        private static uint ComputeHash(string path)
+        private static ulong ComputeHash(string path, BHD5.Game game)
         {
             string hashable = path.Trim().Replace('\\', '/').ToLowerInvariant();
             if (!hashable.StartsWith("/"))
                 hashable = '/' + hashable;
-            return hashable.Aggregate(0u, (i, c) => i * 37 + c);
+            return game >= BHD5.Game.EldenRing ? hashable.Aggregate(0ul, (i, c) => i * PRIME64 + c) : hashable.Aggregate(0u, (i, c) => i * PRIME + c);
+        }
+
+        public static BHD5 Generate(string rootDir, string[] paths, string[] unknownFiles, BHD5.Game game, int bucketDistribution, bool bigendian, out Dictionary<ulong, string> hashDict)
+        {
+            // Initialization
+            var bhd = new BHD5(game);
+            bhd.BigEndian = bigendian;
+
+            int totalLength = paths.Length + unknownFiles.Length;
+
+            int bucketCount = GetNextPrime(totalLength / bucketDistribution);
+            bhd.Buckets = new List<BHD5.Bucket>(bucketCount);
+            while (bucketCount != bhd.Buckets.Count)
+                bhd.Buckets.Add(new BHD5.Bucket());
+
+            // Collect known and unknown paths and put them in a dictionary for accessing by hash later so we can order file data
+            hashDict = new Dictionary<ulong, string>(paths.Length + unknownFiles.Length);
+            foreach (string path in paths)
+            {
+                ulong hash = ComputeHash(GetRelative(rootDir, path), game);
+                var fileHeader = new BHD5.FileHeader();
+                fileHeader.FileNameHash = hash;
+
+                int bucketIndex = GetBucket(hash, bucketCount);
+                bhd.Buckets[bucketIndex].Add(fileHeader);
+                if (hashDict.ContainsKey(hash))
+                    throw new HashCollisionException($"Hash Collision Detected:\n{hash} = {GetRelative(rootDir, hashDict[hash])}\n{hash} = {GetRelative(rootDir, path)}");
+                hashDict.Add(hash, path);
+            }
+
+            foreach (string path in unknownFiles)
+            {
+                string hashStr = Path.GetFileNameWithoutExtension(path);
+                while (hashStr.Contains("."))
+                    hashStr = Path.GetFileNameWithoutExtension(hashStr);
+                ulong hash = ulong.Parse(hashStr);
+                var fileHeader = new BHD5.FileHeader();
+                fileHeader.FileNameHash = hash;
+
+                int bucketIndex = GetBucket(hash, bucketCount);
+                bhd.Buckets[bucketIndex].Add(fileHeader);
+                if (hashDict.ContainsKey(hash))
+                    throw new HashCollisionException($"Hash Collision Detected:\n{GetRelative(rootDir, hashDict[hash])}\n{hash} = {GetRelative(rootDir, path)}");
+                hashDict.Add(hash, path);
+            }
+
+            // Set proper file sizes and offsets
+            long prevOffset = 0;
+            foreach (var bucket in bhd.Buckets)
+            {
+                foreach (var fileHeader in bucket)
+                {
+                    string file = hashDict[fileHeader.FileNameHash];
+                    int size = (int)new FileInfo(file).Length;
+                    fileHeader.PaddedFileSize = size;
+                    fileHeader.FileOffset = prevOffset;
+                    prevOffset += size;
+                }
+            }
+
+            return bhd;
+        }
+
+        private static int GetBucket(ulong hash, int bucketCount)
+        {
+            return (int)(hash % (ulong)bucketCount);
+        }
+
+        public static string GetRelative(string relativeFrom, string path)
+        {
+            if (!path.StartsWith(relativeFrom))
+                throw new ArgumentException($"The directory to start from was not found on path: {path}");
+            return path.Remove(0, relativeFrom.Length);
+        }
+
+        private static bool IsPrime(int number)
+        {
+            // Numbers less than 2 are not prime.
+            // If the number % 1 is not 0 it is not prime.
+            // If the number % itself is not 0 it is not prime.
+            if (number < 2 || number % 1 != 0 || number % number != 0)
+                return false;
+
+            // 2 Is prime.
+            if (number == 2)
+                return true;
+
+            // Check to see if it is divisible by any numbers other than 1 and itself, if it is it is not prime.
+            for (int i = 3; i < number; i++)
+                if (number % i == 0)
+                    return false;
+            return true;
+        }
+
+        private static int GetNextPrime(int number)
+        {
+            while (!IsPrime(number))
+                number++;
+            return number;
         }
 
         private static List<string> Langs = new List<string>()
@@ -132,6 +238,8 @@ namespace DVDUnbinder
             "IT",
             "JP",
             "SP",
+            "KR",
+            "CN"
         };
 
         private static Dictionary<string, string> Paths = new Dictionary<string, string>()

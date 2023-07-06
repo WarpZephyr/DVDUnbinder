@@ -47,6 +47,7 @@
             this.btnBrowseDictionary = new System.Windows.Forms.Button();
             this.txtDictionary = new System.Windows.Forms.TextBox();
             this.btnDumpHashNameMatch = new System.Windows.Forms.Button();
+            this.btnDumpBuckets = new System.Windows.Forms.Button();
             lblHeader = new System.Windows.Forms.Label();
             lblData = new System.Windows.Forms.Label();
             lblOutput = new System.Windows.Forms.Label();
@@ -174,7 +175,7 @@
             // 
             this.pbrProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbrProgress.Location = new System.Drawing.Point(12, 223);
+            this.pbrProgress.Location = new System.Drawing.Point(12, 224);
             this.pbrProgress.Name = "pbrProgress";
             this.pbrProgress.Size = new System.Drawing.Size(684, 23);
             this.pbrProgress.TabIndex = 10;
@@ -184,7 +185,7 @@
             this.cbxGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxGame.FormattingEnabled = true;
-            this.cbxGame.Location = new System.Drawing.Point(326, 171);
+            this.cbxGame.Location = new System.Drawing.Point(218, 170);
             this.cbxGame.Name = "cbxGame";
             this.cbxGame.Size = new System.Drawing.Size(121, 21);
             this.cbxGame.TabIndex = 11;
@@ -197,7 +198,7 @@
             // 
             this.txtCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCurrent.Location = new System.Drawing.Point(12, 197);
+            this.txtCurrent.Location = new System.Drawing.Point(12, 198);
             this.txtCurrent.Name = "txtCurrent";
             this.txtCurrent.ReadOnly = true;
             this.txtCurrent.Size = new System.Drawing.Size(684, 20);
@@ -235,11 +236,23 @@
             this.btnDumpHashNameMatch.UseVisualStyleBackColor = true;
             this.btnDumpHashNameMatch.Click += new System.EventHandler(this.DumpHashNameMatch_Click);
             // 
+            // btnDumpBuckets
+            // 
+            this.btnDumpBuckets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDumpBuckets.Location = new System.Drawing.Point(345, 169);
+            this.btnDumpBuckets.Name = "btnDumpBuckets";
+            this.btnDumpBuckets.Size = new System.Drawing.Size(102, 23);
+            this.btnDumpBuckets.TabIndex = 17;
+            this.btnDumpBuckets.Text = "Dump Buckets";
+            this.btnDumpBuckets.UseVisualStyleBackColor = true;
+            this.btnDumpBuckets.Click += new System.EventHandler(this.btnDumpBuckets_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 258);
+            this.ClientSize = new System.Drawing.Size(734, 257);
+            this.Controls.Add(this.btnDumpBuckets);
             this.Controls.Add(this.btnDumpHashNameMatch);
             this.Controls.Add(this.btnBrowseDictionary);
             this.Controls.Add(this.txtDictionary);
@@ -284,6 +297,7 @@
         private System.Windows.Forms.Button btnBrowseDictionary;
         private System.Windows.Forms.TextBox txtDictionary;
         private System.Windows.Forms.Button btnDumpHashNameMatch;
+        private System.Windows.Forms.Button btnDumpBuckets;
     }
 }
 

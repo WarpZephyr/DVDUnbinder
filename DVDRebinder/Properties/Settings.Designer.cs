@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DVDUnbinder.Properties {
+namespace DVDRebinder.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,18 +20,6 @@ namespace DVDUnbinder.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UpgradeRequired {
-            get {
-                return ((bool)(this["UpgradeRequired"]));
-            }
-            set {
-                this["UpgradeRequired"] = value;
             }
         }
         
@@ -49,7 +37,7 @@ namespace DVDUnbinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("816, 258")]
+        [global::System.Configuration.DefaultSettingValueAttribute("714, 290")]
         public global::System.Drawing.Size WindowSize {
             get {
                 return ((global::System.Drawing.Size)(this["WindowSize"]));
@@ -73,25 +61,25 @@ namespace DVDUnbinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string HeaderPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("dvdbnd5_layer0.bhd")]
+        public string HeaderName {
             get {
-                return ((string)(this["HeaderPath"]));
+                return ((string)(this["HeaderName"]));
             }
             set {
-                this["HeaderPath"] = value;
+                this["HeaderName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DataPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("dvdbnd_layer0.bdt")]
+        public string DataName {
             get {
-                return ((string)(this["DataPath"]));
+                return ((string)(this["DataName"]));
             }
             set {
-                this["DataPath"] = value;
+                this["DataName"] = value;
             }
         }
         
@@ -109,25 +97,61 @@ namespace DVDUnbinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DictionaryPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool BigEndian {
             get {
-                return ((string)(this["DictionaryPath"]));
+                return ((bool)(this["BigEndian"]));
             }
             set {
-                this["DictionaryPath"] = value;
+                this["BigEndian"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("DarkSouls1")]
         public string Game {
             get {
                 return ((string)(this["Game"]));
             }
             set {
                 this["Game"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int BucketDistribution {
+            get {
+                return ((int)(this["BucketDistribution"]));
+            }
+            set {
+                this["BucketDistribution"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastBrowseDirectory {
+            get {
+                return ((string)(this["LastBrowseDirectory"]));
+            }
+            set {
+                this["LastBrowseDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InDir {
+            get {
+                return ((string)(this["InDir"]));
+            }
+            set {
+                this["InDir"] = value;
             }
         }
     }
