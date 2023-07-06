@@ -110,6 +110,22 @@ namespace DVDUnbinder
                 MessageBox.Show("Data file not found.");
                 return;
             }
+            if (!File.Exists(txtDictionary.Text))
+            {
+                MessageBox.Show("Dictionary file not found.");
+                return;
+            }
+            if (string.IsNullOrEmpty(txtOutput.Text))
+            {
+                MessageBox.Show("Please select an output folder.");
+                return;
+            }
+            if (File.Exists(txtOutput.Text))
+            {
+                MessageBox.Show("Selected output folder is a file, please choose a different name.");
+            }
+
+            Directory.CreateDirectory(txtOutput.Text);
 
             BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
             Dictionary<ulong, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text, game);
