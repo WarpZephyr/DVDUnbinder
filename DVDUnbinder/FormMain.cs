@@ -1,8 +1,7 @@
-﻿using BHDLib;
+﻿using BhdLib;
 using SoulsFormats;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,11 +21,6 @@ namespace DVDUnbinder
         public FormMain()
         {
             InitializeComponent();
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            Text = "DVDUnbinder " + Application.ProductVersion;
             Location = settings.WindowLocation;
             if (settings.WindowSize.Width >= MinimumSize.Width && settings.WindowSize.Height >= MinimumSize.Height)
                 Size = settings.WindowSize;
@@ -37,6 +31,7 @@ namespace DVDUnbinder
             txtData.Text = settings.DataPath;
             txtDictionary.Text = settings.DictionaryPath;
             txtOutput.Text = settings.OutputDir;
+            cbxGenerateCleanDict.Checked = settings.GenerateCleanDictionary;
 
             cbxGame.DataSource = Enum.GetValues(typeof(BHD5.Game));
             if (cbxGame.Items.Contains(settings.Game))
@@ -61,6 +56,7 @@ namespace DVDUnbinder
             settings.DataPath = txtData.Text;
             settings.DictionaryPath = txtDictionary.Text;
             settings.OutputDir = txtOutput.Text;
+            settings.GenerateCleanDictionary = cbxGenerateCleanDict.Checked;
         }
 
         private void BrowseHeaderFile_Click(object sender, EventArgs e)
@@ -233,69 +229,11 @@ namespace DVDUnbinder
                         }
                     }
                 });
-                File.WriteAllLines(cleanDictPath, cleanList);
-            }
-        }
 
-        private async void DumpHashNameMatch_Click(object sender, EventArgs e)
-        {
-            string headerPath = txtHeader.Text;
-
-            if (!File.Exists(headerPath))
-            {
-                MessageBox.Show("Header file not found.");
-                return;
-            }
-
-            BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
-            Dictionary<ulong, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text, game);
-            string outDir = txtOutput.Text;
-
-            List<string> blacklist = new List<string>();
-            if (File.Exists(BlacklistPath))
-            {
-                try
+                if (cbxGenerateCleanDict.Checked)
                 {
-                    blacklist.AddRange(File.ReadAllLines(BlacklistPath));
+                    File.WriteAllLines(cleanDictPath, cleanList);
                 }
-                catch{}
-            }
-
-            using (var headerStream = File.OpenRead(headerPath))
-            {
-                BHD5 bhd = BHD5.Read(headerStream, game);
-                pbrProgress.Maximum = bhd.Buckets.Sum(b => b.Count);
-                pbrProgress.Value = 0;
-                int foundFiles = 0;
-                int notFoundFiles = 0;
-                string outPath = $"{outDir}\\hashes-names.txt";
-                List<string> list = new List<string>();
-                File.CreateText(outPath);
-
-                await Task.Run(() =>
-                {
-                    foreach (BHD5.Bucket bucket in bhd.Buckets)
-                    {
-                        foreach (BHD5.FileHeader fileHeader in bucket)
-                        {
-                            bool found = dict.TryGetValue(fileHeader.FileNameHash, out string name);
-                            string result = $"{fileHeader.FileNameHash}={name}";
-                            if (found && !blacklist.Contains(result))
-                            {
-                                foundFiles++;
-                                list.Add(result);
-                            }
-                            else
-                            {
-                                notFoundFiles++;
-                            }
-
-                            Invoke(new Action(() => txtCurrent.Text = $"{notFoundFiles} not found out of {foundFiles + notFoundFiles} total files; {dict.Count} names tried per hash."));
-                            Invoke(new Action(() => pbrProgress.Value++));
-                        }
-                    }
-                });
-                File.WriteAllLines(outPath, list);
             }
         }
 

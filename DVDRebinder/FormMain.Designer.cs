@@ -308,7 +308,6 @@
             this.Name = "FormMain";
             this.Text = "DVDRebinder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
-            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numBucketDistribution)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,14 +1,10 @@
-﻿using BHDLib;
+﻿using BhdLib;
 using SoulsFormats;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,11 +18,6 @@ namespace DVDUnbinder
         public FormMain()
         {
             InitializeComponent();
-        }
-
-        private void FormMain_Load(object sender, EventArgs e)
-        {
-            Text = "DVDRebinder " + Application.ProductVersion;
             Location = settings.WindowLocation;
             if (settings.WindowSize.Width >= MinimumSize.Width && settings.WindowSize.Height >= MinimumSize.Height)
                 Size = settings.WindowSize;
@@ -35,8 +26,8 @@ namespace DVDUnbinder
 
             txtHeaderName.Text = settings.HeaderName;
             txtDataName.Text = settings.DataName;
-            txtInput.Text = settings.InDir;
-            txtOutput.Text = settings.OutputDir;
+            txtInput.Text = settings.InputDirectory;
+            txtOutput.Text = settings.OutputDirectory;
             if (settings.BucketDistribution > 0)
                 numBucketDistribution.Value = settings.BucketDistribution;
             cbxBigEndian.Checked = settings.BigEndian;
@@ -61,8 +52,8 @@ namespace DVDUnbinder
 
             settings.HeaderName = txtHeaderName.Text;
             settings.DataName = txtDataName.Text;
-            settings.InDir = txtInput.Text;
-            settings.OutputDir = txtOutput.Text;
+            settings.InputDirectory = txtInput.Text;
+            settings.OutputDirectory = txtOutput.Text;
             settings.BucketDistribution = (int)numBucketDistribution.Value;
             settings.Game = cbxGame.Text;
             settings.BigEndian = cbxBigEndian.Checked;
@@ -72,28 +63,28 @@ namespace DVDUnbinder
         private void btnBrowseHeaderName_Click(object sender, EventArgs e)
         {
             string initialDir = "C:\\Users";
-            if (settings.LastBrowseDirectory != "")
-                initialDir = settings.LastBrowseDirectory;
+            if (settings.HeaderLastBrowsedDirectory != "")
+                initialDir = settings.HeaderLastBrowsedDirectory;
 
             string path = Util.GetFile("Select a file to get it's name for the BHD5 header file.", "All Files (*.*)|*.*", initialDir);
             if (path == null)
                 return;
 
-            settings.LastBrowseDirectory = Path.GetDirectoryName(path);
+            settings.HeaderLastBrowsedDirectory = Path.GetDirectoryName(path);
             txtHeaderName.Text = Path.GetFileName(path);
         }
 
         private void btnBrowseDataName_Click(object sender, EventArgs e)
         {
             string initialDir = "C:\\Users";
-            if (settings.LastBrowseDirectory != "")
-                initialDir = settings.LastBrowseDirectory;
+            if (settings.HeaderLastBrowsedDirectory != "")
+                initialDir = settings.HeaderLastBrowsedDirectory;
 
             string path = Util.GetFile("Select a file to get it's name for the BHD5 data file.", "All Files (*.*)|*.*", initialDir);
             if (path == null)
                 return;
 
-            settings.LastBrowseDirectory = Path.GetDirectoryName(path);
+            settings.DataLastBrowsedDirectory = Path.GetDirectoryName(path);
             txtDataName.Text = Path.GetFileName(path);
         }
 
@@ -103,7 +94,6 @@ namespace DVDUnbinder
             if (path == null)
                 return;
 
-            settings.LastBrowseDirectory = path;
             txtInput.Text = path;
         }
 
@@ -113,15 +103,14 @@ namespace DVDUnbinder
             if (path == null)
                 return;
 
-            settings.LastBrowseDirectory = path;
             txtOutput.Text = path;
         }
 
         private void btnBrowseHeaderBucketCount_Click(object sender, EventArgs e)
         {
             string initialDir = "C:\\Users";
-            if (settings.LastBrowseDirectory != "")
-                initialDir = settings.LastBrowseDirectory;
+            if (settings.HeaderLastBrowsedDirectory != "")
+                initialDir = settings.HeaderLastBrowsedDirectory;
 
             string path = Util.GetFile("Select a BHD5 Header file to get the approximate bucket distribution of.", "Binder Header (*.bhd)|*.bhd|All Files (*.*)|*.*", initialDir);
             if (path == null)

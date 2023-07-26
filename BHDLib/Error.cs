@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BHDLib
+namespace BhdLib
 {
     public class HashCollisionException : Exception
     {

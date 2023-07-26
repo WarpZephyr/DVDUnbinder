@@ -17,7 +17,7 @@
     <Setting Name="DataName" Type="System.String" Scope="User">
       <Value Profile="(Default)">dvdbnd_layer0.bdt</Value>
     </Setting>
-    <Setting Name="OutputDir" Type="System.String" Scope="User">
+    <Setting Name="OutputDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="BigEndian" Type="System.Boolean" Scope="User">
@@ -29,10 +29,13 @@
     <Setting Name="BucketDistribution" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">7</Value>
     </Setting>
-    <Setting Name="LastBrowseDirectory" Type="System.String" Scope="User">
+    <Setting Name="HeaderLastBrowsedDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="InDir" Type="System.String" Scope="User">
+    <Setting Name="DataLastBrowsedDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="InputDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoulsFormats", "..\SoulsFor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVDRebinder", "DVDRebinder\DVDRebinder.csproj", "{CA362330-E6E8-4101-8041-BCE53C492620}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHDLib", "BHDLib\BHDLib.csproj", "{432C1719-CACA-4518-A926-8D625A0D87AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BhdLib", "BhdLib\BhdLib.csproj", "{432C1719-CACA-4518-A926-8D625A0D87AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVDBinderDumper", "DVDBinderDumper\DVDBinderDumper.csproj", "{747035A2-2A9D-486B-BD62-64C630086C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{432C1719-CACA-4518-A926-8D625A0D87AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{432C1719-CACA-4518-A926-8D625A0D87AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{432C1719-CACA-4518-A926-8D625A0D87AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747035A2-2A9D-486B-BD62-64C630086C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747035A2-2A9D-486B-BD62-64C630086C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747035A2-2A9D-486B-BD62-64C630086C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747035A2-2A9D-486B-BD62-64C630086C57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

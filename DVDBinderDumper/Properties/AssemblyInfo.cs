@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BhdLib")]
+[assembly: AssemblyTitle("DVDBinderDumper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BhdLib")]
+[assembly: AssemblyProduct("DVDBinderDumper")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("432c1719-caca-4518-a926-8d625a0d87aa")]
+[assembly: Guid("747035a2-2a9d-486b-bd62-64c630086c57")]
 
 // Version information for an assembly consists of the following four values:
 //

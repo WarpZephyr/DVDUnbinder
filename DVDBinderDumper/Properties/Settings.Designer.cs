@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DVDUnbinder.Properties {
+namespace DVDBinderDumper.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,13 +25,85 @@ namespace DVDUnbinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UpgradeRequired {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int FirstOptionSelectedIndex {
             get {
-                return ((bool)(this["UpgradeRequired"]));
+                return ((int)(this["FirstOptionSelectedIndex"]));
             }
             set {
-                this["UpgradeRequired"] = value;
+                this["FirstOptionSelectedIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int SecondOptionSelectedIndex {
+            get {
+                return ((int)(this["SecondOptionSelectedIndex"]));
+            }
+            set {
+                this["SecondOptionSelectedIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ThirdOptionSelectedIndex {
+            get {
+                return ((int)(this["ThirdOptionSelectedIndex"]));
+            }
+            set {
+                this["ThirdOptionSelectedIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstOptionEnabled {
+            get {
+                return ((bool)(this["FirstOptionEnabled"]));
+            }
+            set {
+                this["FirstOptionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SecondOptionEnabled {
+            get {
+                return ((bool)(this["SecondOptionEnabled"]));
+            }
+            set {
+                this["SecondOptionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ThirdOptionEnabled {
+            get {
+                return ((bool)(this["ThirdOptionEnabled"]));
+            }
+            set {
+                this["ThirdOptionEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DarkSouls1")]
+        public string SelectedGame {
+            get {
+                return ((string)(this["SelectedGame"]));
+            }
+            set {
+                this["SelectedGame"] = value;
             }
         }
         
@@ -49,7 +121,7 @@ namespace DVDUnbinder.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("816, 258")]
+        [global::System.Configuration.DefaultSettingValueAttribute("855, 388")]
         public global::System.Drawing.Size WindowSize {
             get {
                 return ((global::System.Drawing.Size)(this["WindowSize"]));
@@ -86,30 +158,6 @@ namespace DVDUnbinder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DataPath {
-            get {
-                return ((string)(this["DataPath"]));
-            }
-            set {
-                this["DataPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string OutputDir {
-            get {
-                return ((string)(this["OutputDir"]));
-            }
-            set {
-                this["OutputDir"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DictionaryPath {
             get {
                 return ((string)(this["DictionaryPath"]));
@@ -122,24 +170,48 @@ namespace DVDUnbinder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Game {
+        public string OutputDirectory {
             get {
-                return ((string)(this["Game"]));
+                return ((string)(this["OutputDirectory"]));
             }
             set {
-                this["Game"] = value;
+                this["OutputDirectory"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool GenerateCleanDictionary {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string HeaderLastBrowsedDirectory {
             get {
-                return ((bool)(this["GenerateCleanDictionary"]));
+                return ((string)(this["HeaderLastBrowsedDirectory"]));
             }
             set {
-                this["GenerateCleanDictionary"] = value;
+                this["HeaderLastBrowsedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DictionaryLastBrowsedDirectory {
+            get {
+                return ((string)(this["DictionaryLastBrowsedDirectory"]));
+            }
+            set {
+                this["DictionaryLastBrowsedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DumpOptionSelectedIndex {
+            get {
+                return ((int)(this["DumpOptionSelectedIndex"]));
+            }
+            set {
+                this["DumpOptionSelectedIndex"] = value;
             }
         }
     }

@@ -86,12 +86,12 @@ namespace DVDRebinder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string OutputDir {
+        public string OutputDirectory {
             get {
-                return ((string)(this["OutputDir"]));
+                return ((string)(this["OutputDirectory"]));
             }
             set {
-                this["OutputDir"] = value;
+                this["OutputDirectory"] = value;
             }
         }
         
@@ -134,24 +134,36 @@ namespace DVDRebinder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastBrowseDirectory {
+        public string HeaderLastBrowsedDirectory {
             get {
-                return ((string)(this["LastBrowseDirectory"]));
+                return ((string)(this["HeaderLastBrowsedDirectory"]));
             }
             set {
-                this["LastBrowseDirectory"] = value;
+                this["HeaderLastBrowsedDirectory"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string InDir {
+        public string DataLastBrowsedDirectory {
             get {
-                return ((string)(this["InDir"]));
+                return ((string)(this["DataLastBrowsedDirectory"]));
             }
             set {
-                this["InDir"] = value;
+                this["DataLastBrowsedDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InputDirectory {
+            get {
+                return ((string)(this["InputDirectory"]));
+            }
+            set {
+                this["InputDirectory"] = value;
             }
         }
     }

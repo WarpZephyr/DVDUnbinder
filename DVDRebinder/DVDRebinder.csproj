@@ -85,9 +85,9 @@
       <Project>{4545d6b1-2109-4ad6-9153-688eee0ba3db}</Project>
       <Name>SoulsFormats</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BHDLib\BHDLib.csproj">
+    <ProjectReference Include="..\BHDLib\BhdLib.csproj">
       <Project>{432c1719-caca-4518-a926-8d625a0d87aa}</Project>
-      <Name>BHDLib</Name>
+      <Name>BhdLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

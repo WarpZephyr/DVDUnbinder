@@ -46,8 +46,8 @@
             this.txtCurrent = new System.Windows.Forms.TextBox();
             this.btnBrowseDictionary = new System.Windows.Forms.Button();
             this.txtDictionary = new System.Windows.Forms.TextBox();
-            this.btnDumpHashNameMatch = new System.Windows.Forms.Button();
             this.btnDumpBuckets = new System.Windows.Forms.Button();
+            this.cbxGenerateCleanDict = new System.Windows.Forms.CheckBox();
             lblHeader = new System.Windows.Forms.Label();
             lblData = new System.Windows.Forms.Label();
             lblOutput = new System.Windows.Forms.Label();
@@ -98,7 +98,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHeader.Location = new System.Drawing.Point(12, 25);
             this.txtHeader.Name = "txtHeader";
-            this.txtHeader.Size = new System.Drawing.Size(684, 20);
+            this.txtHeader.Size = new System.Drawing.Size(637, 20);
             this.txtHeader.TabIndex = 2;
             this.txtHeader.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtHeader.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -110,7 +110,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtData.Location = new System.Drawing.Point(12, 64);
             this.txtData.Name = "txtData";
-            this.txtData.Size = new System.Drawing.Size(684, 20);
+            this.txtData.Size = new System.Drawing.Size(637, 20);
             this.txtData.TabIndex = 3;
             this.txtData.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtData.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -122,7 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtOutput.Location = new System.Drawing.Point(12, 143);
             this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(684, 20);
+            this.txtOutput.Size = new System.Drawing.Size(637, 20);
             this.txtOutput.TabIndex = 4;
             this.txtOutput.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
             this.txtOutput.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
@@ -130,40 +130,40 @@
             // btnBrowseHeader
             // 
             this.btnBrowseHeader.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseHeader.Location = new System.Drawing.Point(702, 25);
+            this.btnBrowseHeader.Location = new System.Drawing.Point(655, 25);
             this.btnBrowseHeader.Name = "btnBrowseHeader";
-            this.btnBrowseHeader.Size = new System.Drawing.Size(20, 20);
+            this.btnBrowseHeader.Size = new System.Drawing.Size(64, 20);
             this.btnBrowseHeader.TabIndex = 6;
-            this.btnBrowseHeader.Text = "B";
+            this.btnBrowseHeader.Text = "Browse";
             this.btnBrowseHeader.UseVisualStyleBackColor = true;
             this.btnBrowseHeader.Click += new System.EventHandler(this.BrowseHeaderFile_Click);
             // 
             // btnBrowseData
             // 
             this.btnBrowseData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseData.Location = new System.Drawing.Point(702, 64);
+            this.btnBrowseData.Location = new System.Drawing.Point(655, 64);
             this.btnBrowseData.Name = "btnBrowseData";
-            this.btnBrowseData.Size = new System.Drawing.Size(20, 20);
+            this.btnBrowseData.Size = new System.Drawing.Size(64, 20);
             this.btnBrowseData.TabIndex = 7;
-            this.btnBrowseData.Text = "B";
+            this.btnBrowseData.Text = "Browse";
             this.btnBrowseData.UseVisualStyleBackColor = true;
             this.btnBrowseData.Click += new System.EventHandler(this.BrowseDataFile_Click);
             // 
             // btnBrowseOutput
             // 
             this.btnBrowseOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseOutput.Location = new System.Drawing.Point(702, 143);
+            this.btnBrowseOutput.Location = new System.Drawing.Point(655, 143);
             this.btnBrowseOutput.Name = "btnBrowseOutput";
-            this.btnBrowseOutput.Size = new System.Drawing.Size(20, 20);
+            this.btnBrowseOutput.Size = new System.Drawing.Size(64, 20);
             this.btnBrowseOutput.TabIndex = 8;
-            this.btnBrowseOutput.Text = "B";
+            this.btnBrowseOutput.Text = "Browse";
             this.btnBrowseOutput.UseVisualStyleBackColor = true;
             this.btnBrowseOutput.Click += new System.EventHandler(this.BrowseOutputFolder_Click);
             // 
             // btnUnpack
             // 
             this.btnUnpack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUnpack.Location = new System.Drawing.Point(621, 169);
+            this.btnUnpack.Location = new System.Drawing.Point(644, 169);
             this.btnUnpack.Name = "btnUnpack";
             this.btnUnpack.Size = new System.Drawing.Size(75, 23);
             this.btnUnpack.TabIndex = 9;
@@ -177,7 +177,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbrProgress.Location = new System.Drawing.Point(12, 224);
             this.pbrProgress.Name = "pbrProgress";
-            this.pbrProgress.Size = new System.Drawing.Size(684, 23);
+            this.pbrProgress.Size = new System.Drawing.Size(707, 23);
             this.pbrProgress.TabIndex = 10;
             // 
             // cbxGame
@@ -185,7 +185,7 @@
             this.cbxGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxGame.FormattingEnabled = true;
-            this.cbxGame.Location = new System.Drawing.Point(218, 170);
+            this.cbxGame.Location = new System.Drawing.Point(409, 170);
             this.cbxGame.Name = "cbxGame";
             this.cbxGame.Size = new System.Drawing.Size(121, 21);
             this.cbxGame.TabIndex = 11;
@@ -201,17 +201,17 @@
             this.txtCurrent.Location = new System.Drawing.Point(12, 198);
             this.txtCurrent.Name = "txtCurrent";
             this.txtCurrent.ReadOnly = true;
-            this.txtCurrent.Size = new System.Drawing.Size(684, 20);
+            this.txtCurrent.Size = new System.Drawing.Size(707, 20);
             this.txtCurrent.TabIndex = 12;
             // 
             // btnBrowseDictionary
             // 
             this.btnBrowseDictionary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseDictionary.Location = new System.Drawing.Point(702, 104);
+            this.btnBrowseDictionary.Location = new System.Drawing.Point(655, 104);
             this.btnBrowseDictionary.Name = "btnBrowseDictionary";
-            this.btnBrowseDictionary.Size = new System.Drawing.Size(20, 20);
+            this.btnBrowseDictionary.Size = new System.Drawing.Size(64, 20);
             this.btnBrowseDictionary.TabIndex = 15;
-            this.btnBrowseDictionary.Text = "B";
+            this.btnBrowseDictionary.Text = "Browse";
             this.btnBrowseDictionary.UseVisualStyleBackColor = true;
             this.btnBrowseDictionary.Click += new System.EventHandler(this.BrowseDictFile_Click);
             // 
@@ -222,24 +222,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDictionary.Location = new System.Drawing.Point(12, 104);
             this.txtDictionary.Name = "txtDictionary";
-            this.txtDictionary.Size = new System.Drawing.Size(684, 20);
+            this.txtDictionary.Size = new System.Drawing.Size(637, 20);
             this.txtDictionary.TabIndex = 14;
-            // 
-            // btnDumpHashNameMatch
-            // 
-            this.btnDumpHashNameMatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDumpHashNameMatch.Location = new System.Drawing.Point(453, 169);
-            this.btnDumpHashNameMatch.Name = "btnDumpHashNameMatch";
-            this.btnDumpHashNameMatch.Size = new System.Drawing.Size(162, 23);
-            this.btnDumpHashNameMatch.TabIndex = 16;
-            this.btnDumpHashNameMatch.Text = "Dump Hash-Name Matches";
-            this.btnDumpHashNameMatch.UseVisualStyleBackColor = true;
-            this.btnDumpHashNameMatch.Click += new System.EventHandler(this.DumpHashNameMatch_Click);
             // 
             // btnDumpBuckets
             // 
             this.btnDumpBuckets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDumpBuckets.Location = new System.Drawing.Point(345, 169);
+            this.btnDumpBuckets.Location = new System.Drawing.Point(536, 169);
             this.btnDumpBuckets.Name = "btnDumpBuckets";
             this.btnDumpBuckets.Size = new System.Drawing.Size(102, 23);
             this.btnDumpBuckets.TabIndex = 17;
@@ -247,13 +236,26 @@
             this.btnDumpBuckets.UseVisualStyleBackColor = true;
             this.btnDumpBuckets.Click += new System.EventHandler(this.btnDumpBuckets_Click);
             // 
+            // cbxGenerateCleanDict
+            // 
+            this.cbxGenerateCleanDict.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbxGenerateCleanDict.AutoSize = true;
+            this.cbxGenerateCleanDict.Checked = true;
+            this.cbxGenerateCleanDict.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxGenerateCleanDict.Location = new System.Drawing.Point(253, 172);
+            this.cbxGenerateCleanDict.Name = "cbxGenerateCleanDict";
+            this.cbxGenerateCleanDict.Size = new System.Drawing.Size(150, 17);
+            this.cbxGenerateCleanDict.TabIndex = 18;
+            this.cbxGenerateCleanDict.Text = "Generate Clean Dictionary";
+            this.cbxGenerateCleanDict.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 257);
+            this.ClientSize = new System.Drawing.Size(731, 257);
+            this.Controls.Add(this.cbxGenerateCleanDict);
             this.Controls.Add(this.btnDumpBuckets);
-            this.Controls.Add(this.btnDumpHashNameMatch);
             this.Controls.Add(this.btnBrowseDictionary);
             this.Controls.Add(this.txtDictionary);
             this.Controls.Add(lblDictionary);
@@ -274,7 +276,6 @@
             this.Name = "FormMain";
             this.Text = "DVDUnbinder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
-            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gameBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -296,8 +297,8 @@
         private System.Windows.Forms.TextBox txtCurrent;
         private System.Windows.Forms.Button btnBrowseDictionary;
         private System.Windows.Forms.TextBox txtDictionary;
-        private System.Windows.Forms.Button btnDumpHashNameMatch;
         private System.Windows.Forms.Button btnDumpBuckets;
+        private System.Windows.Forms.CheckBox cbxGenerateCleanDict;
     }
 }
 

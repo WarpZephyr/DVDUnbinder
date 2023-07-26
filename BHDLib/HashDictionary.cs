@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text.RegularExpressions;
 
-namespace BHDLib
+namespace BhdLib
 {
     public static class HashDictionary
     {
