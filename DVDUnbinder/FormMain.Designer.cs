@@ -224,6 +224,8 @@
             this.txtDictionary.Name = "txtDictionary";
             this.txtDictionary.Size = new System.Drawing.Size(637, 20);
             this.txtDictionary.TabIndex = 14;
+            this.txtDictionary.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
+            this.txtDictionary.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBox_DragEnter);
             // 
             // btnDumpBuckets
             // 

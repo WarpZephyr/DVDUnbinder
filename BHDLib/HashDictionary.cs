@@ -64,8 +64,8 @@ namespace BhdLib
             }
             while (found);
 
-            line = line.Replace('/', '\\');
-            while (line.StartsWith(".\\"))
+            line = line.Replace('\\', '/');
+            while (line.StartsWith("./"))
                 line = line.Substring(2);
 
             void langAdd(string l)
@@ -77,8 +77,15 @@ namespace BhdLib
                 }
                 else
                 {
-                    dict[ComputeHash(l, game)] = l;
-                    dict[ComputeHash(l + ".dcx", game)] = l + ".dcx";
+                    ulong hash = ComputeHash(l, game);
+                    if (!dict.ContainsKey(hash) || l == dict[hash])
+                        dict[hash] = l;
+                    if (!l.EndsWith(".dcx"))
+                    {
+                        ulong hashdcx = ComputeHash(l + ".dcx", game);
+                        if (!dict.ContainsKey(hashdcx) || l + ".dcx" == dict[hashdcx])
+                            dict[hashdcx] = l + ".dcx";
+                    }
                 }
             }
 

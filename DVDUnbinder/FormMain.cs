@@ -126,7 +126,7 @@ namespace DVDUnbinder
             BHD5.Game game = (BHD5.Game)cbxGame.SelectedItem;
             Dictionary<ulong, string> dict = HashDictionary.ReadDictionary(txtDictionary.Text, game);
             string outDir = txtOutput.Text;
-            
+
             using (var headerStream = File.OpenRead(headerPath))
             using (var dataStream = File.OpenRead(dataPath))
             {
@@ -167,7 +167,7 @@ namespace DVDUnbinder
                             overrides.Add(ulong.Parse(split[0]), split[1]);
                         }
                     }
-                    catch{}
+                    catch { }
                 }
 
                 List<string> blacklist = new List<string>();
@@ -177,7 +177,7 @@ namespace DVDUnbinder
                     {
                         blacklist.AddRange(File.ReadAllLines(BlacklistPath));
                     }
-                    catch{}
+                    catch { }
                 }
 
                 await Task.Run(() =>
