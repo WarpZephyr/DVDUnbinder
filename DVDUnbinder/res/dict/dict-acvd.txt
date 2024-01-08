@@ -11584,6 +11584,7 @@
 /model/map/m3100/m3100_m.dcx.bnd
 /model/map/m3100/m3100_map.msb
 /model/map/m3101/m3101.msb
+/model/map/m3101/m3101_aitest_hys.msb
 /model/map/m3101/m3101_arena.msb
 /model/map/m3101/m3101_htdcx.bnd
 /model/map/m3101/m3101_l.tpf.dcx
@@ -11853,6 +11854,8 @@
 /model/map/m3750/m3750_m.dcx.bnd
 /model/map/m3750/m3750_map.msb
 /model/map/m4000/m4000.msb
+/model/map/m4000/m4000_actest.msb
+/model/map/m4000/m4000_aitest.msb
 /model/map/m4000/m4000_htdcx.bnd
 /model/map/m4000/m4000_l.tpf.dcx
 /model/map/m4000/m4000_m.dcx.bnd
@@ -13423,6 +13426,7 @@
 /param/accolor/color9606.bin
 /param/accolor/color9607.bin
 /param/accolor/color9971.bin
+/param/accolor/color9974.bin
 /param/accolor/color9981.bin
 /param/accolor/color9982.bin
 /param/accolor/color9983.bin
@@ -14835,4 +14839,3 @@
 /tae/obj/o9365/own000100.tae
 /tae/obj/o9366/own000100.tae
 /tae/obj/o9400/own000100.tae
-/param/accolor/color9974.bin
